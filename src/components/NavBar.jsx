@@ -1,11 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 const NavBar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg bg-color1 ">
             <div className="container-fluid">
-                <a className="navbar-brand" >Clúster Taurus</a>
+
+                <Link className="navbar-brand txt-color3" >
+                    <img src="TaurusCluster_sinFondo.png" className='nav-logo' alt="" />
+                </Link>
+                <Link className="navbar-brand txt-color3" >
+                    <h2>Clúster Taurus</h2>
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -14,12 +21,12 @@ const NavBar = () => {
                         <li className="nav-item">
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" >Visitas</a>
+                            <Link className="nav-link txt-color3" >Visitas</Link>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle"  id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Administración
-                            </a>
+                            </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li><NavLink className="dropdown-item" to="/colono">Colonos</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/vehiculo">Vehículos</NavLink></li>
