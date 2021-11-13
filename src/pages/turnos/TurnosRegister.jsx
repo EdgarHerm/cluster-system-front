@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ViviendasScreen = () => {
+const TurnosRegister = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const ViviendasScreen = () => {
     )
 }
 
-export default ViviendasScreen
+export default TurnosRegister

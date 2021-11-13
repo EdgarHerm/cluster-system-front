@@ -1,7 +1,6 @@
 import React from 'react'
 
-const 
- = () => {
+const VehiculosRegister = () => {
     return (
         <div>
             
@@ -9,5 +8,4 @@ const
     )
 }
 
-export default 
-
+export default VehiculosRegister

@@ -1,5 +1,5 @@
 import React from 'react'
-const image_path = "TaurusCluster_sinFondo.png";
+const image_path = "./assets/img/TaurusCluster_sinFondo.png";
 const Login = () => {
     return (
         <div className='m-0 vh-100 row justify-content-center align-items-center' >

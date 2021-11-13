@@ -2,13 +2,15 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
+const image_path = "./assets/img/TaurusCluster_sinFondo.png";
+
 const NavBar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-color1 ">
             <div className="container-fluid">
 
                 <Link className="navbar-brand txt-color3"to={'/'} >
-                    <img src="TaurusCluster_sinFondo.png" className='nav-logo' alt="" />
+                    <img src={image_path} className='nav-logo' alt="" />
                 </Link>
                 <Link className="navbar-brand txt-color3" to={'/'} >
                     <h2>Clúster Taurus</h2>
