@@ -1,3 +1,3 @@
-import {Get, Post, Put, Delete} from 'common/http'
+// import {Get, Post, Put, Delete} from 'common/http'
 
-export const addSettler = (colono = {}) => Post('colono/agregar', {colono});
+// export const addSettler = (colono = {}) => Post('colono/agregar', {colono});
