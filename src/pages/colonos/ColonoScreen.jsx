@@ -1,5 +1,5 @@
 import React from 'react'
-import {addSettler} from '../services/colono.js'
+import {addSettler} from '../../services/colono.js'
 
 const FormularioColono = () => {
     return (
