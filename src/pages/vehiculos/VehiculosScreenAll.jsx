@@ -6,12 +6,14 @@ const VehiculosScreenAll = () => {
             <div className="container-fluid">
                 <div class="card border-secondary mb-3 mb-3 mt-5">
                     <div class="row g-0">
-                        <div class="col-md-4 center">
+                        <div class="col-md-4 center ">
                             <img src="https://d3nqlc6zkdn9bc.cloudfront.net/wp-content/uploads/2021/04/13131150/4-documentos-esenciales-para-conducir-tu-vehi%CC%81culo-.jpg" class="img-fluid rounded-start" alt="..." />
                         </div>
                         <div class="col-md-8">
                             <form>
-                                <div class="card-header bg-secondary text-white"><h5 class="card-title">Registro de Vehículo</h5></div>
+                                <div class="card-header  bg-color2">
+                                    <h5 class="card-title">Registro de Vehículo</h5>
+                                </div>
                                 <div class="card-body">
 
 

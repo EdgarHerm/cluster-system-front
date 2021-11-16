@@ -1,79 +1,35 @@
 import React from 'react'
-import {addSettler} from '../../services/colono.js'
+import { addSettler } from '../../services/colono.js'
 
 const FormularioColono = () => {
+    const image ='https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg'
     return (
+        
         <div className="container">
-            <div className="container-fluid">
-                <div className="card border-secondary mb-3 mb-3 mt-5">
-                    <div className="row g-0">
-                        <div className="col-md-4">
-                            <img src="https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg" className="img-fluid rounded-middle " alt="..." />
+            <form action="" className="form-control m-5 bg-color2">
+                <div className="row justify-content-center align-items-center ">
+                    <div className="col-4 text-center  " >
+                        <img src={image} alt="..."  style={{width:"100%" }}  className="img-fluid rounded-middle " />
+                    </div>
+                    <div className="col-8">
+                        <div className="form-group mt-3">
+                            <label htmlFor="">Calle</label>
+                            <input name='calle' type="text" className="form-control" />
                         </div>
-                        <div className="col-md-8">
-                            <form>
-                                <div className="card-header bg-secondary text-white"><h5 className="card-title">Registro de Colono</h5></div>
-                                <div className="card-body">
-
-
-                                    <div className="row">
-                                        <div className="col-md-4">
-                                            <label for="exampleInputEmail1" className="form-label">Nombre (s)</label>
-                                            <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                        </div>
-                                        <div className="col-md-4">
-                                            <label for="exampleInputEmail1" className="form-label">Primer Apellido</label>
-                                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                        </div>
-                                        <div className="col-md-4">
-                                            <label for="exampleInputEmail1" className="form-label">Segundo Apellido</label>
-                                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                        </div>
-                                    </div>
-                                    <div className="row">
-
-                                        <div className="col-md-6">
-                                            <label for="exampleInputEmail1" className="form-label">Teléfono</label>
-                                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label for="exampleInputEmail1" className="form-label">Fotografía</label>
-                                            <input type="file" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                        </div>
-                                    </div>
-
-                                    <hr />
-
-
-                                </div>
-                                <div className="card-header bg-secondary text-white"><h5 className="card-title">Domicilio - Colono</h5></div>
-                                <div className="card-body">
-
-
-                                    <div className="row mt-3">
-                                        <div className="col-md-12">
-                                            <label for="exampleInputEmail1" className="form-label">Colono</label>
-                                            <select className="form-select" aria-label="Default select example">
-                                                <option selected>Seleccionar...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="row mt-5">
-                                        <div className="col-md-3 right">
-                                            <button type="submit" className="btn btn-primary" onClick={addSettler}>Confirmar</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </form>
+                        <div className="form-group  mt-3">
+                            <label htmlFor="">Número</label>
+                            <input name='numero' type="text" className="form-control" />
+                        </div>
+                        <div className="form-group mt-3">
+                            <label htmlFor="">Descripción</label>
+                            <textarea name='descripcion' className="form-control" rows="3"></textarea>
+                        </div>
+                        <div className="form-group mt-3 mb-3">
+                            <button type="submit" className="btn btn-gold">Guardar</button>
                         </div>
                     </div>
                 </div>
-
-            </div>
+            </form>
         </div>
     )
 }

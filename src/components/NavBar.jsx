@@ -9,7 +9,7 @@ const NavBar = () => {
         <nav className="navbar navbar-expand-lg bg-color1 ">
             <div className="container-fluid">
 
-                <Link className="navbar-brand txt-color3"to={'/'} >
+                <Link className="navbar-brand txt-color3" to={'/'} >
                     <img src={image_path} className='nav-logo' alt="" />
                 </Link>
                 <Link className="navbar-brand txt-color3" to={'/'} >
@@ -27,15 +27,56 @@ const NavBar = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administración
+                                Colonos
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><NavLink className="dropdown-item" to="/colono">Colonos</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/vehiculo">Vehículos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/colonos">Colonos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/registro-colono">Registro Colonos</NavLink></li>
                                 <li><hr className="dropdown-divider"></hr></li>
-                                <li><a className="dropdown-item" >Viviendas</a></li>
+                                <li><NavLink className="dropdown-item" to="/vehiculos">Vehiculos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/registro-vehiculo">Registro Vehiculos</NavLink></li>
                             </ul>
                         </li>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Visitas
+                            </Link>
+                            <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><NavLink className="dropdown-item" to="/registro-visita">Registro Visitas</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/visitas">Visitas</NavLink></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Viviendas
+                            </Link>
+                            <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><NavLink className="dropdown-item" to="/registro-vivienda">Registro Viviendas</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/viviendas">Viviendas</NavLink></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Personal
+                            </Link>
+                            <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><NavLink className="dropdown-item" to="/registro-personal">Registro Personal</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/personal">Personal</NavLink></li>
+                                <li><hr className="dropdown-divider"></hr></li>
+                                <li><NavLink className="dropdown-item" to="/registro-turno">Registro Turnos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/turnos">Turnos</NavLink></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pagos
+                            </Link>
+                            <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><NavLink className="dropdown-item" to="/registro-pago">Registro Pagos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/pagos">Pagos</NavLink></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -45,4 +86,3 @@ const NavBar = () => {
 }
 
 export default NavBar
-    

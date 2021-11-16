@@ -46,23 +46,23 @@ const AppRouter = () => {
                 <Route exact path="/colono/:id" component={ColonoScreen} />
 
                 {/* Visitas */}
-                <Route exact path="/registro-visitas" component={VisitasRegister} />
+                <Route exact path="/registro-visita" component={VisitasRegister} />
                 <Route exact path="/visitas" component={VisitasScreenAll} />
                 <Route exact path="/visita/:id" component={VisitasScreen} />
 
                 {/* Vehiculos */}
-                <Route exact path="/registro-vehiculos" component={VehiculosRegister} />
+                <Route exact path="/registro-vehiculo" component={VehiculosRegister} />
                 <Route exact path="/vehiculos" component={VehiculosScreenAll} />
                 <Route exact path="/vehiculo/:id" component={VehiculosScreen} />
 
                 
                 {/* Viviendas */}
-                <Route exact path="/registro-Viviendas" component={ViviendasRegister} />
+                <Route exact path="/registro-vivienda" component={ViviendasRegister} />
                 <Route exact path="/viviendas" component={ViviendasScreenAll} />
                 <Route exact path="/vivienda/:id" component={ViviendasScreen} />
 
                 {/* pagos */}
-                <Route exact path="/registro-pagos" component={PagosRegister} />
+                <Route exact path="/registro-pago" component={PagosRegister} />
                 <Route exact path="/pagos" component={PagosScreenAll} />
                 <Route exact path="/pago/:id" component={PagosScreen} />
 
@@ -81,7 +81,8 @@ const AppRouter = () => {
                 <Route exact path="/" component={Login} />
 
             </Switch>
-            <Footer />
+
+            <Footer/>
 
         </Router>
     )
