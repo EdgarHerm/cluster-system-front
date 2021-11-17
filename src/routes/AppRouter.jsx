@@ -32,6 +32,7 @@ import TurnosScreenAll from '../pages/turnos/TurnosScreenAll'
 import TurnosScreen from '../pages/turnos/TurnosScreen'
 
 import Login from '../pages/Login'
+import PagosReception from '../pages/pagos/PagosReception'
 
 
 const AppRouter = () => {
@@ -65,6 +66,7 @@ const AppRouter = () => {
                 <Route exact path="/registro-pago" component={PagosRegister} />
                 <Route exact path="/pagos" component={PagosScreenAll} />
                 <Route exact path="/pago/:id" component={PagosScreen} />
+                <Route exact path="/recepcion-pago" component={PagosReception} />
 
                 {/* personal */}
                 <Route exact path="/registro-personal" component={PersonalRegister} />
@@ -72,7 +74,7 @@ const AppRouter = () => {
                 <Route exact path="/personal/:id" component={PersonalScreen} />
 
                 {/* turnos */}
-                <Route exact path="/registro-turnos" component={TurnosRegister} />
+                <Route exact path="/registro-turno" component={TurnosRegister} />
                 <Route exact path="/turnos" component={TurnosScreenAll} />
                 <Route exact path="/turno/:id" component={TurnosScreen} />
 

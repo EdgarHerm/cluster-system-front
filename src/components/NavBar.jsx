@@ -72,8 +72,9 @@ const NavBar = () => {
                                 Pagos
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><NavLink className="dropdown-item" to="/registro-pago">Registro Pagos</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/pagos">Pagos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/registro-pago">Registro Pagos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/recepcion-pago">Recepcion Pagos</NavLink></li>
                             </ul>
                         </li>
 
