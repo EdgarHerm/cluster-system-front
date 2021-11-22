@@ -12,8 +12,6 @@ const Login = () => {
         const respuesta = await fetch(
             "https://deadcousing.pythonanywhere.com/sesion/login", {
             method: "POST",
-            mode: "no-cors",
-            credentials: 'omit', // include, *same-origin, omit
             headers: new Headers({
                 "Content-Type": "application/json"
             }),
