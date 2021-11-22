@@ -15,7 +15,7 @@ const Login = () => {
             mode: "no-cors",
             credentials: 'omit', // include, *same-origin, omit
             headers: new Headers({
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             }),
             body: JSON.stringify({
                 usuario: 'candeGTZ@gmail.com',
