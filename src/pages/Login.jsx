@@ -13,7 +13,11 @@ const Login = () => {
             "https://deadcousing.pythonanywhere.com/sesion/login", {
             method: "POST",
             headers: new Headers({
-                "Content-Type": "application/json"
+                'Accept': 'application/json',
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Authorization,Lang'                
             }),
             body: JSON.stringify({
                 usuario: 'candeGTZ@gmail.com',
