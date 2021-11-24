@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 const image_path = "./assets/img/TaurusCluster_sinFondo.png";
 
 const NavBar = () => {
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    }
+
     return (
         <nav className="navbar navbar-expand-lg bg-color1 ">
             <div className="container-fluid">
@@ -80,6 +86,14 @@ const NavBar = () => {
 
                     </ul>
                 </div>
+                <button>
+                    <NavLink className="btn btn-outline-light" to={'/login'}>
+                        <i className="fas fa-sign-out-alt"></i>
+                    </NavLink>
+                </button>
+                <button onClick={handleLogout()}>
+                    Cerrar Sesion
+                </button>
             </div>
         </nav>
 

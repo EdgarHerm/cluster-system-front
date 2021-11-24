@@ -33,13 +33,14 @@ import TurnosScreen from '../pages/turnos/TurnosScreen'
 
 import Login from '../pages/Login'
 import PagosReception from '../pages/pagos/PagosReception'
+import { store } from '../app/store'
 
 
 const AppRouter = () => {
+    console.log("isLogin"+store.isLogin);
     return (
         <Router>
-
-            <NavBar />
+            {store.isLogin ? <NavBar /> : null}
             <Switch>
                 {/* Colonos */}
                 <Route exact path="/registro-colono" component={ColonosRegister} />
@@ -56,7 +57,7 @@ const AppRouter = () => {
                 <Route exact path="/vehiculos" component={VehiculosScreenAll} />
                 <Route exact path="/vehiculo/:id" component={VehiculosScreen} />
 
-                
+
                 {/* Viviendas */}
                 <Route exact path="/registro-vivienda" component={ViviendasRegister} />
                 <Route exact path="/viviendas" component={ViviendasScreenAll} />
@@ -77,17 +78,14 @@ const AppRouter = () => {
                 <Route exact path="/registro-turno" component={TurnosRegister} />
                 <Route exact path="/turnos" component={TurnosScreenAll} />
                 <Route exact path="/turno/:id" component={TurnosScreen} />
-
                 {/* Login */}
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/" component={Login} />
+                {/* Default */}
+                <Route component={() => <h1>404</h1>} />
 
             </Switch>
-
-            <Footer/>
-
+            <Footer />
         </Router>
     )
 }
-
 export default AppRouter

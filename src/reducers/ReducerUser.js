@@ -1,6 +1,11 @@
 export const ReducerUser = (state, action) => {
     const { type } = action
     switch (type) {
+        case '@@INIT':
+            return {
+                isLogin: false,
+                user: null
+            }
         case 'LOGIN':
             return {
                 ...state,
@@ -15,7 +20,10 @@ export const ReducerUser = (state, action) => {
                 user: null
             }
         default:
-            return state = null;
+            return {
+                isLogin: false,
+                user: null
+            }
     };
 }
 

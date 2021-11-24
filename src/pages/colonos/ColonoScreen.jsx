@@ -1,5 +1,4 @@
 import React from 'react'
-import { addSettler } from '../../services/colono.js'
 
 const FormularioColono = () => {
     const image ='https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg'

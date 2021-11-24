@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { store } from '../app/store';
 
 const Login = () => {
-    const state = store.getState();
     const [usuario, setUsuario] = useState('candeGTZ@gmail.com');
     const [contrasenia, setContrasenia] = useState('CandeGTZ7');
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
 
-        const respuesta = await fetch(
+        await fetch(
             "https://deadcousing.pythonanywhere.com/sesion/login", {
             method: "POST",
             headers: new Headers({
@@ -17,30 +16,31 @@ const Login = () => {
                 "Content-Type": "application/json",
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE',
-                'Access-Control-Allow-Headers': 'Authorization,Lang'                
+                'Access-Control-Allow-Headers': 'Authorization,Lang'
             }),
             body: JSON.stringify({
-                usuario: 'candeGTZ@gmail.com',
-                contrasenia: 'CandeGTZ7'
+                usuario: usuario,
+                contrasenia: contrasenia
             }),
         }).then((response) => {
             if (response.ok) {
-                console.log(response);
                 return response.json();
             } else {
                 console.log(response);
 
             }
+        }).then((data) => {
+            console.log(data['colono']['0']);
+            localStorage.setItem('token', JSON.stringify(data['colono']['0']['token']));
+            store.dispatch({
+                type: 'LOGIN',
+                payload: data['colono']['0']
+            })
+        }).catch((error) => {
+            console.log(error);
         });
-        console.log('respuesta: ' + respuesta);
-
     }
 
-
-
-    const handleConsole = () => {
-        console.log(state);
-    }
     const image_path = "./assets/img/TaurusCluster_sinFondo.png";
 
 

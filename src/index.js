@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
-      <div className="bg-color4">
+      <div className="bg-color1">
         <App />
       </div>
     </Provider>
