@@ -6,8 +6,8 @@ const ColonosRegister = () => {
 
         <div className="container">
             <form action="" className="m-5 bg-white">
-                <div class="card-header  bg-color2 text-center mb-2">
-                    <h5 class="card-title">Registro de Colono</h5>
+                <div className="card-header  bg-color2 text-center mb-2">
+                    <h5 className="card-title">Registro de Colono</h5>
                 </div>
                 <div className="row ">
                     <div className="col-4 text-center  " >

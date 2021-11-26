@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-import { store } from '../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+
 
 const Login = () => {
-    const [usuario, setUsuario] = useState('candeGTZ@gmail.com');
+    const [usuario, setUsuario] = useState('candeGTZ7@gmail.com');
     const [contrasenia, setContrasenia] = useState('CandeGTZ7');
+    const state = useSelector(state => state);
+    const dispatch = useDispatch();
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
-
+        console.log('usuario: ', state.user);
         await fetch(
             "https://deadcousing.pythonanywhere.com/sesion/login", {
             method: "POST",
@@ -30,9 +35,9 @@ const Login = () => {
 
             }
         }).then((data) => {
-            console.log(data['colono']['0']);
+            console.log(data['colono']['0']['token']);
             localStorage.setItem('token', JSON.stringify(data['colono']['0']['token']));
-            store.dispatch({
+            dispatch({
                 type: 'LOGIN',
                 payload: data['colono']['0']
             })
@@ -45,7 +50,6 @@ const Login = () => {
 
 
     return (
-
         <div className='m-0 vh-100 row justify-content-center align-items-center' >
             <div className="col-6 p-1 text-center bg-color1 card" style={{ width: "25rem" }}>
                 <h1 className=''>Login</h1>
@@ -75,4 +79,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

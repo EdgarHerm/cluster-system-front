@@ -33,14 +33,11 @@ import TurnosScreen from '../pages/turnos/TurnosScreen'
 
 import Login from '../pages/Login'
 import PagosReception from '../pages/pagos/PagosReception'
-import { store } from '../app/store'
 
 
 const AppRouter = () => {
-    console.log("isLogin"+store.isLogin);
     return (
         <Router>
-            {store.isLogin ? <NavBar /> : null}
             <Switch>
                 {/* Colonos */}
                 <Route exact path="/registro-colono" component={ColonosRegister} />
@@ -81,6 +78,8 @@ const AppRouter = () => {
                 {/* Login */}
                 <Route exact path="/login" component={Login} />
                 {/* Default */}
+                <Route exact path="/" component={VisitasRegister} />
+
                 <Route component={() => <h1>404</h1>} />
 
             </Switch>
