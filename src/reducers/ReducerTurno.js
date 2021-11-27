@@ -19,7 +19,7 @@ export const ReducerTurno = (state =[], action) => {
         case 'GET_TURNOS':
             return {
                 ...state,
-                turnos: [action.payload]
+                turnos: action.payload
             }
         default:
             return {

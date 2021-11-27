@@ -1,9 +1,7 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import TrTurno from './Components/TrTurno';
+import { useDispatch } from 'react-redux';
 
-const TurnosScreenAll = () => {
+const TrTurno = ({ horaInicio, horaFin, idTurno }) => {
     const handleFetch = async ({ url, method, body, type }) => {
         switch (method) {
             case 'POST':
@@ -25,6 +23,7 @@ const TurnosScreenAll = () => {
                         console.log(response);
                     }
                 }).then((data) => {
+                    console.log(data);
                     dispatch({
                         type: type,
                         payload: data
@@ -55,12 +54,18 @@ const TurnosScreenAll = () => {
         }
     }
     const dispatch = useDispatch();
-    const state = useSelector(state => state.turno);
-
-    useEffect(() => {
+    const handleDelete = () => {
+        handleFetch({
+            url: "https://deadcousing.pythonanywhere.com/turno/desactivar",
+            method: "POST",
+            body: JSON.stringify({
+                idTurno: idTurno
+            }),
+            type: "DELETE_TURNO"
+        });
+        console.log("Esperemos que si se haya eliminado xd");
         handleGetAll();
-    }, [])
-
+    }
     const handleGetAll = () => {
         handleFetch({
             url: "https://deadcousing.pythonanywhere.com/turno/mostrar",
@@ -70,32 +75,16 @@ const TurnosScreenAll = () => {
             type: "GET_TURNOS"
         });
     }
-
     return (
-        <div className="container bg-white m-5">
-            <div className="card-header  bg-color2 text-center ">
-                <h5 className="card-title">Registro de Turnos</h5>
-            </div>
-            <table className='table table-light' >
-                <thead>
-                    <tr>
-                        <th>Hora Inicio</th>
-                        <th>Hora Fin</th>
-                        <th>options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        state.turnos.map((turno) => {
-                            return (
-                                <TrTurno key={turno.idTurno} {...turno} />
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
+        <tr id={idTurno} >
+            <td>{horaInicio}</td>
+            <td>{horaFin}</td>
+            <td>
+                <button className='btn-success btn'> Editar </button>
+                <button className='btn-danger btn' onClick={handleDelete} > Eliminar </button>
+            </td>
+        </tr>
     )
 }
 
-export default TurnosScreenAll
+export default TrTurno

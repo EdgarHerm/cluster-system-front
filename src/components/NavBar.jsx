@@ -8,7 +8,6 @@ const NavBar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        window.location.href = '/';
     }
 
     return (

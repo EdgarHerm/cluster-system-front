@@ -38,6 +38,7 @@ import PagosReception from '../pages/pagos/PagosReception'
 const AppRouter = () => {
     return (
         <Router>
+            <NavBar />
             <Switch>
                 {/* Colonos */}
                 <Route exact path="/registro-colono" component={ColonosRegister} />

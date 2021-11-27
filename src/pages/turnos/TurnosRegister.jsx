@@ -5,7 +5,6 @@ const TurnosRegister = () => {
     const [horaInicio, setHoraInicio] = useState('00:00');
     const [horaFin, setHoraFin] = useState('00:00');
     const state = useSelector(state => state.turno);
-    const turnos = state
     const dispatch = useDispatch();
     const initTurno = () => {
         setHoraInicio('00:00');
@@ -74,7 +73,7 @@ const TurnosRegister = () => {
             type: "GET_TURNOS"
         });
         initTurno();
-        console.log("state: "+state.turnos);
+        console.log(state.turnos.map(turno => turno.horaInicio));
     }
 
     const handleRegister = (e) => {
@@ -102,10 +101,6 @@ const TurnosRegister = () => {
                         <img src={image} alt="..." className="img-fluid rounded-middle ms-3 mt-2" />
                         <div className="form-group mt-3 mb-3">
                             <button type="submit" className="btn btn-gold" onClick={handleRegister} >Guardar</button>
-                        </div>
-
-                        <div className="form-group mt-3 mb-3">
-                            <button type="submit" className="btn btn-gold" onClick={handleGetAll} >GetAll</button>
                         </div>
                     </div>
                     <div className="col-8 ">
@@ -139,8 +134,6 @@ const TurnosRegister = () => {
                                     placeholder="Hora Fin"
                                 />
                             </div>
-                        </div>
-                        <div className="">
                         </div>
                     </div>
                 </div>
