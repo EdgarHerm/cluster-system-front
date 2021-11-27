@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import NavBar from '../components/NavBar';
 
 
 const Login = () => {
     const [usuario, setUsuario] = useState('candeGTZ7@gmail.com');
     const [contrasenia, setContrasenia] = useState('CandeGTZ7');
-    const state = useSelector(state => state);
     const dispatch = useDispatch();
+
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
-        console.log('usuario: ', state.user);
+        //console.log('usuario: ', state.user);
         await fetch(
             "https://deadcousing.pythonanywhere.com/sesion/login", {
             method: "POST",
@@ -29,6 +27,8 @@ const Login = () => {
             }),
         }).then((response) => {
             if (response.ok) {
+                setUsuario('');
+                setContrasenia('');
                 return response.json();
             } else {
                 console.log(response);
