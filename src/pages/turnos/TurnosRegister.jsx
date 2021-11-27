@@ -63,19 +63,6 @@ const TurnosRegister = () => {
                 break;
         }
     }
-    const handleGetAll = (e) => {
-        e.preventDefault();
-        handleFetch({
-            url: "https://deadcousing.pythonanywhere.com/turno/mostrar",
-            method: "GET",
-            body: JSON.stringify({
-            }),
-            type: "GET_TURNOS"
-        });
-        initTurno();
-        console.log(state.turnos.map(turno => turno.horaInicio));
-    }
-
     const handleRegister = (e) => {
         e.preventDefault();
         handleFetch({
