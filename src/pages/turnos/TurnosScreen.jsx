@@ -1,11 +1,11 @@
 import React from 'react'
-
-const Visita = () => {
+const TurnosScreen = () => {
+    
     return (
         <div>
-            visita
+           
         </div>
     )
 }
 
-export default Visita
+export default TurnosScreen

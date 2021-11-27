@@ -1,11 +1,20 @@
+import { Provider } from 'react-redux';
 import './App.css';
+import { store } from './app/store';
+import Login from './pages/Login';
 import AppRouter from './routes/AppRouter';
 
 function App() {
+
   return (
-    <div className="App bg-color4">
-      <AppRouter></AppRouter>
-    </div>
+    <>
+      <Provider store={store} >
+        {localStorage.getItem('token') ? (
+          <AppRouter />
+        ) : <Login />}
+      </Provider>
+
+    </>
   );
 }
 
