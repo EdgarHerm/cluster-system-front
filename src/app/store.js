@@ -4,6 +4,7 @@ import ReducerUser from '../reducers/ReducerUser';
 import ReducerEmpleado from '../reducers/ReducerEmpleado';
 import ReducerVisita from '../reducers/ReducerVisita';
 import { ReducerVivienda } from '../reducers/ReducerVivienda';
+import { ReducerColono } from '../reducers/ReducerColono';
 
 const rootReducer = combineReducers({
     turno: ReducerTurno,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     user: ReducerUser,
     visita: ReducerVisita,
     viviendas: ReducerVivienda,
+    colonos: ReducerColono
     //login: ReducerLogin
 });
 
