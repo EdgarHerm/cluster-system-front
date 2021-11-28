@@ -1,161 +1,85 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Empleados from "../../requests/Empleados";
+import { Link } from "react-router-dom";
+import TableEmpleados from "./TableEmpleados";
 
 const PersonalScreenAll = () => {
-  const handleFetch = ({ url, method, body, type }) => {
-    switch (method) {
-      case "POST":
-        fetch(url, {
-          method: method,
-          headers: new Headers({
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE",
-            "Access-Control-Allow-Headers": "Authorization,Lang",
-          }),
-          body: body,
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              console.log(response);
-            }
-          })
-          .then((data) => {
-            // console.log(data)
-            console.log(type);
-            dispatch({
-              type: type,
-              payload: data,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        break;
-      case "GET":
-        fetch(url, {
-          method: method,
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else console.log(response);
-          })
-          .then((data) => {
-            dispatch({
-              type: type,
-              payload: data,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        break;
-      default:
-        break;
-    }
-  };
-
   const dispatch = useDispatch();
-  const { empleado } = useSelector((state) => state.empleado);
+  const empleado = useSelector((state) => state.empleado.empleado);
+  const [init, setInit] = useState(1);
 
   useEffect(() => {
-    handleGetAll();
-  }, []);
+    if (init === 1) {
+      handleGetAll();
+      setInit(0);
+    }
+  }, [empleado]);
 
-  const handleGetAll = () => {
-    handleFetch({
-      url: "https://deadcousing.pythonanywhere.com/empleado/mostrar",
-      method: "POST",
-      body: JSON.stringify({
-        idEmpleado: 0,
-      }),
+  const handleGetAll = async () => {
+    let response = await Empleados.consultar(0);
+    dispatch({
       type: "GET_EMPLEADOS",
+      payload: response,
     });
-  };
-  const Empleados = {};
-  Empleados.desactivarEmpleado = async (idEmpleado) => {
-    console.log(idEmpleado);
-    return fetch("https://deadcousing.pythonanywhere.com/empleado/desactivar", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
-        "Access-Control-Allow-Headers": "Authorization, Lang",
-      },
-      body: JSON.stringify({
-        idEmpleado: idEmpleado,
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const desactivarEmpleados = async (idEmpleado) => {
-    console.log(idEmpleado);
-    const response = await Empleados.desactivarEmpleado(idEmpleado);
-    console.log(response);
-    handleGetAll();
   };
 
   return (
     <div className="container bg-white m-12">
       <div className="card-header  bg-color2 text-center ">
-        <h5 className="card-title">Registro de Turnos</h5>
+        <h5 className="card-title">Registro de Personal</h5>
       </div>
-      <table className="table table-light">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Telefono</th>
-            <th>Empresa</th>
-            <th>Zona</th>
-            <th>Hora inicio</th>
-            <th>Hora fin</th>
-            <th>options</th>
-          </tr>
-        </thead>
-        <tbody>
-          {empleado.map((empleado) => {
-            return (
-              <tr id={empleado.idEmpleado}>
-                <td>{empleado.nombre}</td>
-                <td>{empleado.apellidos}</td>
-                <td>{empleado.telefono}</td>
-                <td>{empleado.empresa}</td>
-                <td>{empleado.zona}</td>
-                <td>{empleado.horaInicio}</td>
-                <td>{empleado.horaFin}</td>
-                <td>
-                  <button type="button" className="btn btn-primary">
-                    Editar
-                  </button>
-                  <button
-                    className="btn-danger btn"
-                    onClick={() => {
-                      desactivarEmpleados(empleado.idEmpleado);
-                    }}
-                  >
-                    {" "}
-                    Eliminar{" "}
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <nav>
+        <div className="nav nav-tabs" id="nav-tab" role="tablist">
+          <button
+            className="nav-link active"
+            id="nav-active-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-active"
+            type="button"
+            role="tab"
+            aria-controls="nav-active"
+            aria-selected="true"
+          >
+            Activos
+          </button>
+          <button
+            className="nav-link"
+            id="nav-inactive-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-inactive"
+            type="button"
+            role="tab"
+            aria-controls="nav-inactive"
+            aria-selected="false"
+          >
+            Inactivos
+          </button>
+        </div>
+      </nav>
+      <div className="tab-content" id="nav-tabContent">
+        <div
+          className="tab-pane fade show active"
+          id="nav-active"
+          role="tabpanel"
+          aria-labelledby="nav-active-tab"
+        >
+          <TableEmpleados empleados={empleado} estatus={1} />
+        </div>
+        <div
+          className="tab-pane fade"
+          id="nav-inactive"
+          role="tabpanel"
+          aria-labelledby="nav-inactive-tab"
+        >
+          <TableEmpleados empleados={empleado} estatus={0} />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default PersonalScreenAll;
+{
+}

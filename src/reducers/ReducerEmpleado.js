@@ -14,7 +14,7 @@ export const ReducerEmpleado = (state =[], action) => {
         case 'UPDATE_EMPLEADO':
             return {
                 ...state,
-                empleado: action.payload
+                empleados: action.paypayload
             }
         case 'GET_EMPLEADOS':
             return {
@@ -25,7 +25,7 @@ export const ReducerEmpleado = (state =[], action) => {
             return {
                 ...state,
                 empleado: null,
-                empleado: []
+                empleados: []
             }
 
     }
