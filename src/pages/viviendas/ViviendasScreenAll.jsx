@@ -6,14 +6,6 @@ import TableViviendas from './components/TableViviendas';
 const ViviendasScreenAll = () => {
     const dispatch = useDispatch();
     const viviendas = useSelector(state => state.viviendas.vivienda);
-    const [init, setInit] = useState(1)
-
-    useEffect(() => {
-        if (init === 1) {
-            handleGetAll();
-            setInit(0);
-        }
-    }, [viviendas])
 
     const handleGetAll = async () => {
         let response = await Viviendas.consultar(0);
@@ -23,6 +15,15 @@ const ViviendasScreenAll = () => {
         })
 
     }
+    const [init, setInit] = useState(1)
+
+    useEffect(() => {
+        if (init === 1) {
+            handleGetAll();
+            setInit(0);
+        }
+    }, [viviendas])
+
 
     return (
         <div className="container">

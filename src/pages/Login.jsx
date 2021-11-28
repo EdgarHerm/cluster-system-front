@@ -29,7 +29,7 @@ const Login = ({ history }) => {
             type: 'LOGIN',
             payload: response
         });
-        history.push('/')
+        history.push('/registro-visita')
     };
 
 

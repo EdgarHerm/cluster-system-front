@@ -17,7 +17,9 @@ export default {
                 })
             })
             .then(response => response.json())
-            .then(data => { return data })
+            .then(data => {
+                return data['colono']
+            })
     },
     agregar: (colono) => {
         return fetch(
