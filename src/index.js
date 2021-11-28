@@ -5,8 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
+
   <React.StrictMode>
-    <App />
+    <div className="bg-color1">
+      <App />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

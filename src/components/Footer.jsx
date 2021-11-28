@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer = (  ) => {
     return (
         <footer className="footer">
             <div className="container">
@@ -8,6 +8,7 @@ const Footer = () => {
                     <div className="col-md-12">
                         <div className="footer-copyright">
                             <p>Copyright &copy; 2021. All rights reserved.</p>
+                            
                         </div>
                     </div>
                 </div>
