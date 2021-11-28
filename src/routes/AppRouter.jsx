@@ -33,12 +33,13 @@ import TurnosScreen from '../pages/turnos/TurnosScreen'
 
 import Login from '../pages/Login'
 import PagosReception from '../pages/pagos/PagosReception'
+import Home from '../pages/Home'
 
 
 const AppRouter = () => {
     return (
         <Router>
-            <NavBar />
+            {localStorage.getItem('token') ? <NavBar />:null}
             <Switch>
                 {/* Colonos */}
                 <Route exact path="/registro-colono" component={ColonosRegister} />
@@ -79,7 +80,7 @@ const AppRouter = () => {
                 {/* Login */}
                 <Route exact path="/login" component={Login} />
                 {/* Default */}
-                <Route exact path="/" component={VisitasRegister} />
+                <Route exact path="/" component={Home} />
 
                 <Route component={() => <h1>404</h1>} />
 

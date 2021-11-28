@@ -1,17 +1,23 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 const image_path = "./assets/img/TaurusCluster_sinFondo.png";
 
-const NavBar = () => {
-
+const NavBar = ({ history }) => {
+    const dispatch = useDispatch();
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.clear();
+        sessionStorage.clear();
+        dispatch({ type: 'LOGOUT' });
+        history.push('/login');
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-color1 ">
+        <nav className="navbar navbar-expand-lg bg-color1 " style={localStorage.getItem('token') ? null : { display: 'none' }} >
             <div className="container-fluid">
 
                 <Link className="navbar-brand txt-color3" to={'/'} >
@@ -85,12 +91,10 @@ const NavBar = () => {
 
                     </ul>
                 </div>
-                <button>
-                    <NavLink className="btn btn-outline-light" to={'/login'}>
-                        <i className="fas fa-sign-out-alt"></i>
-                    </NavLink>
-                </button>
-                <button onClick={handleLogout()}>
+                <div className="m-2">
+                    <p>{sessionStorage ? sessionStorage.nombre : ''}</p>
+                </div>
+                <button className='btn btn-gold' onClick={handleLogout}>
                     Cerrar Sesion
                 </button>
             </div>
@@ -99,4 +103,4 @@ const NavBar = () => {
     )
 }
 
-export default NavBar
+export default withRouter(NavBar)

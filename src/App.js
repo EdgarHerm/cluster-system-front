@@ -5,13 +5,13 @@ import Login from './pages/Login';
 import AppRouter from './routes/AppRouter';
 
 function App() {
-
   return (
     <>
-      <Provider store={store} >
+      <Provider store={store}>
         {localStorage.getItem('token') ? (
           <AppRouter />
-        ) : <Login />}
+        ) :
+          <Login />}
       </Provider>
 
     </>

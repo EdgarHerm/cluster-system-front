@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
     user: ReducerUser,
     visita: ReducerVisita,
     viviendas: ReducerVivienda,
+    //login: ReducerLogin
 });
 
 export const store = createStore(
