@@ -69,7 +69,7 @@ const VisitasScreenAll = () => {
       url: "https://deadcousing.pythonanywhere.com/visita/mostrar",
       method: "POST",
       body: JSON.stringify({
-        idVisita:0
+        idVisita: 0
       }),
       type: "GET_VISITAS",
     });
@@ -148,33 +148,39 @@ const VisitasScreenAll = () => {
           </tr>
         </thead>
         <tbody>
-          {state.visitas.map((visitas) => {
-              return(
+          {state.visitas === null || state.visitas === undefined ?
+            <div class="d-flex justify-content-center">
+              <div className="spinner-border text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            : state.visitas.map((visitas) => {
+              return (
                 <tr id={visitas.idVisita}>
-                <td>{visitas.nombre}</td>
-                <td>{visitas.matriculaVehiculo}</td>
-                <td>{visitas.modelo}</td>
-                <td>{visitas.color}</td>
-                <td>
-                  {/* {viviendas.fechaEntrada === "Sat, 01 Jan 2000 00:00:00 GMT" || viviendas.fechaSalida === "Sat, 01 Jan"  } */}
-                    <button className="btn-success btn"  onClick={() => {
+                  <td>{visitas.nombre}</td>
+                  <td>{visitas.matriculaVehiculo}</td>
+                  <td>{visitas.modelo}</td>
+                  <td>{visitas.color}</td>
+                  <td>
+                    {/* {viviendas.fechaEntrada === "Sat, 01 Jan 2000 00:00:00 GMT" || viviendas.fechaSalida === "Sat, 01 Jan"  } */}
+                    <button className="btn-success btn" onClick={() => {
                       salidaVisitas(visitas.idVisita);
                     }}> Salida </button>
                     <br />
                     <button
-                    className="btn-danger btn"
-                    onClick={() => {
-                      desactivarVisitas(visitas.idVisita);
-                    }}
-                  >
-                    {" "}
-                    Registar Entrada{" "}
-                  </button>
-                </td>
+                      className="btn-danger btn"
+                      onClick={() => {
+                        desactivarVisitas(visitas.idVisita);
+                      }}
+                    >
+                      {" "}
+                      Registar Entrada{" "}
+                    </button>
+                  </td>
                 </tr>
               )
-            
-          })}
+
+            })}
         </tbody>
       </table>
     </div>
