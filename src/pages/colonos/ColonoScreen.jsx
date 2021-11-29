@@ -1,36 +1,135 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import ColonoRequest from '../../requests/ColonoRequest';
+import Viviendas from '../../requests/Viviendas';
+import FormularioColono from './componentes/FormularioColono'
 
-const FormularioColono = () => {
-    const image ='https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg'
+const ColonoScreen = ({ history }) => {
+    const image = 'https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg'
+
+    const dispatch = useDispatch();
+    const viviendas = useSelector(state => state.viviendas.vivienda);
+    const colono = useSelector(state => state.colonos.colono);
+
+    const { id } = useParams();
+    const [init, setInit] = useState(1)
+
+    const [data, setData] = useState({
+        idColono: '',
+        idUsuario: '',
+        idPersona: '',
+        idDomicilio: '',
+        fotografia: '',
+        correo: '',
+        contrasena: '',
+        idRol: '',
+        nombre: '',
+        apellidos: '',
+        telefono: '',
+        confirmarContrasena: '',
+    })
+    // const { nombre, apellidos, telefono, fotografia, correo, contrasena, confirmarContrasena, idDomicilio } = data;
+
+    const handleChange = (e) => {
+        setData({
+            ...data, [e.target.name]: e.target.value
+        })
+    }
+    const handleGetAllViviendas = async () => {
+        let response = await Viviendas.consultar(0);
+        dispatch({
+            type: 'VIVIENDA_LIST',
+            payload: response
+        })
+    }
+    const handleGetAll = async () => {
+        let response = await ColonoRequest.consultar(0);
+        dispatch({
+            type: 'lIST_COLONO',
+            payload: response
+        })
+    }
+    const handleGet = async (idColono) => {
+        let response = await ColonoRequest.consultar(idColono);
+        dispatch({
+            type: 'GET_COLONO',
+            payload: response[0]
+        })
+    }
+
+    const handleEdit = (e) => {
+        e.preventDefault();
+        ColonoRequest.modificar(data);
+        handleGetAll();
+        history.push('/colonos');
+    }
+
+
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            setData({
+                ...data,
+                fotografia: reader.result.split(',')[1]
+            })
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const onFileChange = (event) => {
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            getBase64(file);
+        }
+    }
+
+    useEffect(() => {
+        if (init === 1) {
+            handleGet(id);
+        } else if (init === 2) {
+            setData({
+                ...data,
+                idColono: colono.idColono,
+                idUsuario: colono.idUsuario,
+                idPersona: colono.idPersona,
+                idDomicilio: colono.idDomicilio,
+                fotografia: colono.fotografia,
+                correo: colono.correo,
+                contrasena: colono.contraseña,
+                idRol: colono.idRol,
+                nombre: colono.nombre,
+                apellidos: colono.apellidos,
+                telefono: colono.telefono
+            });
+            handleGetAllViviendas();
+        }
+        setInit(0);
+        if (colono === undefined || colono === null) {
+            setInit(2);
+        }
+
+    }, [colono, viviendas]);
     return (
-        
-        <div className="container">
-            <form action="" className="form-control m-5 bg-color2">
-                <div className="row justify-content-center align-items-center ">
-                    <div className="col-4 text-center  " >
-                        <img src={image} alt="..."  style={{width:"100%" }}  className="img-fluid rounded-middle " />
-                    </div>
-                    <div className="col-8">
-                        <div className="form-group mt-3">
-                            <label htmlFor="">Calle</label>
-                            <input name='calle' type="text" className="form-control" />
-                        </div>
-                        <div className="form-group  mt-3">
-                            <label htmlFor="">Número</label>
-                            <input name='numero' type="text" className="form-control" />
-                        </div>
-                        <div className="form-group mt-3">
-                            <label htmlFor="">Descripción</label>
-                            <textarea name='descripcion' className="form-control" rows="3"></textarea>
-                        </div>
-                        <div className="form-group mt-3 mb-3">
-                            <button type="submit" className="btn btn-gold">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+        <>{colono === null || colono === undefined ?
+            <div>Cargando...</div>
+            :
+            colono.idColono === undefined ?
+                <div>Cargando...</div>
+                :
+                < FormularioColono
+                    image={image}
+                    handleSuccess={handleEdit}
+                    data={data}
+                    handleChange={handleChange}
+                    onFileChange={onFileChange}
+                    viviendas={viviendas} />
+        }
+        </>
     )
 }
 
-export default FormularioColono
+export default ColonoScreen

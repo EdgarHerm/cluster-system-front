@@ -19,9 +19,7 @@ import ViviendasRegister from '../pages/viviendas/ViviendasRegister'
 import ViviendasScreenAll from '../pages/viviendas/ViviendasScreenAll'
 import ViviendasScreen from '../pages/viviendas/ViviendasScreen'
 
-import PagosRegister from '../pages/pagos/PagosRegister'
-import PagosScreenAll from '../pages/pagos/PagosScreenAll'
-import PagosScreen from '../pages/pagos/PagosScreen'
+
 
 import PersonalRegister from '../pages/personal/PersonalRegister'
 import PersonalScreenAll from '../pages/personal/PersonalScreenAll'
@@ -32,13 +30,21 @@ import TurnosScreenAll from '../pages/turnos/TurnosScreenAll'
 import TurnosScreen from '../pages/turnos/TurnosScreen'
 
 import Login from '../pages/Login'
-import PagosReception from '../pages/pagos/PagosReception'
+import Home from '../pages/Home'
+
+import PagosRegister from '../pages/pagos/registro/PagosRegister'
+import PagosScreenAll from '../pages/pagos/registro/PagosScreenAll'
+
+import PagosReception from '../pages/pagos/recepcion/PagosReception'
+import PagosScreen from '../pages/pagos/registro/PagosScreen'
+import PagosReceptionAll from '../pages/pagos/recepcion/PagosReceptionAll'
+
 
 
 const AppRouter = () => {
     return (
         <Router>
-            <NavBar />
+            {localStorage.getItem('token') ? <NavBar />:null}
             <Switch>
                 {/* Colonos */}
                 <Route exact path="/registro-colono" component={ColonosRegister} />
@@ -61,11 +67,14 @@ const AppRouter = () => {
                 <Route exact path="/viviendas" component={ViviendasScreenAll} />
                 <Route exact path="/vivienda/:id" component={ViviendasScreen} />
 
-                {/* pagos */}
+                {/* registro pagos */}
                 <Route exact path="/registro-pago" component={PagosRegister} />
                 <Route exact path="/pagos" component={PagosScreenAll} />
                 <Route exact path="/pago/:id" component={PagosScreen} />
-                <Route exact path="/recepcion-pago" component={PagosReception} />
+
+                {/* recepcion de pagos */}
+                <Route exact path="/recepcion-pago" component={PagosReception } />
+                <Route exact path="/pagos-recepcion" component={PagosReceptionAll } />
 
                 {/* personal */}
                 <Route exact path="/registro-personal" component={PersonalRegister} />
@@ -79,7 +88,7 @@ const AppRouter = () => {
                 {/* Login */}
                 <Route exact path="/login" component={Login} />
                 {/* Default */}
-                <Route exact path="/" component={VisitasRegister} />
+                <Route exact path="/" component={Home} />
 
                 <Route component={() => <h1>404</h1>} />
 

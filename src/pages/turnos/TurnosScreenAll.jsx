@@ -1,75 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import TrTurno from './Components/TrTurno';
+import TurnoRequest from '../../requests/TurnoRequest';
 
 const TurnosScreenAll = () => {
-    const handleFetch = async ({ url, method, body, type }) => {
-        switch (method) {
-            case 'POST':
-                await fetch(
-                    url, {
-                    method: method,
-                    headers: new Headers({
-                        'Accept': 'application/json',
-                        "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE',
-                        'Access-Control-Allow-Headers': 'Authorization,Lang'
-                    }),
-                    body: body,
-                }).then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        console.log(response);
-                    }
-                }).then((data) => {
-                    dispatch({
-                        type: type,
-                        payload: data
-                    })
-                }).catch((error) => {
-                    console.log(error);
-                });
-                break;
-            case 'GET':
-                await fetch(
-                    url, {
-                    method: method
-                }).then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else console.log(response);
-                }).then((data) => {
-                    dispatch({
-                        type: type,
-                        payload: data
-                    })
-                }).catch((error) => {
-                    console.log(error);
-                });
-                break;
-            default:
-                break;
-        }
-    }
     const dispatch = useDispatch();
-    const state = useSelector(state => state.turno);
+    const turnos = useSelector(state => state.turno.turno);
 
-    useEffect(() => {
-        handleGetAll();
-    }, [])
-
-    const handleGetAll = () => {
-        handleFetch({
-            url: "https://deadcousing.pythonanywhere.com/turno/mostrar",
-            method: "GET",
-            body: JSON.stringify({
-            }),
-            type: "GET_TURNOS"
+    const handleGetAll = async () => {
+        let response = await TurnoRequest.mostrar();
+        dispatch({
+            type: 'GET_TURNOS',
+            payload: response
         });
     }
+    const handleDelete = async (idTurno) => {
+        TurnoRequest.eliminar(idTurno);
+        handleGetAll();
+    }
+
+
+    const [init, setInit] = useState(0)
+
+    useEffect(() => {
+        if (init === 0) {
+            handleGetAll()
+            setInit(1)
+        }
+    }, [turnos])
 
     return (
         <div className="container bg-white m-5">
@@ -85,13 +43,16 @@ const TurnosScreenAll = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        state.turnos.map((turno) => {
-                            return (
-                                <TrTurno key={turno.idTurno} {...turno} />
-                            )
-                        })
-                    }
+                    {turnos === null ? null :
+                        turnos.filter(turno => turno.estatus === 1).map(turno => (
+                            <tr key={turno.idTurno} >
+                                <td>{turno.horaInicio}</td>
+                                <td>{turno.horaFin}</td>
+                                <td>
+                                    <button className="btn btn-danger" onClick={() => handleDelete(turno.idTurno)}>Eliminar</button>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
         </div>

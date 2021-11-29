@@ -1,81 +1,26 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import TurnoRequest from '../../requests/TurnoRequest';
 
-const TurnosRegister = () => {
-    const [horaInicio, setHoraInicio] = useState('00:00');
-    const [horaFin, setHoraFin] = useState('00:00');
-    const state = useSelector(state => state.turno);
-    const dispatch = useDispatch();
-    const initTurno = () => {
-        setHoraInicio('00:00');
-        setHoraFin('00:00');
-    }
-    const handleFetch = async ({ url, method, body, type }) => {
-        switch (method) {
-            case 'POST':
-                await fetch(
-                    url, {
-                    method: method,
-                    headers: new Headers({
-                        'Accept': 'application/json',
-                        "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE',
-                        'Access-Control-Allow-Headers': 'Authorization,Lang'
-                    }),
-                    body: body,
-                }).then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        console.log(response);
-
-                    }
-                }).then((data) => {
-                    console.log(data);
-                    dispatch({
-                        type: type,
-                        payload: data
-                    })
-                }).catch((error) => {
-                    console.log(error);
-                });
-                break;
-            case 'GET':
-                await fetch(
-                    url, {
-                    method: method
-                }).then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else console.log(response);
-                }).then((data) => {
-                    console.log(data['0']);
-                    dispatch({
-                        type: type,
-                        payload: data
-                    })
-                }).catch((error) => {
-                    console.log(error);
-                });
-                break;
-            default:
-                break;
-        }
+const TurnosRegister = ({ history }) => {
+    const [data, setData] = useState({
+        horaInicio: '00:00',
+        horaFin: '00:00',
+    })
+    const { horaInicio, horaFin } = data;
+    const handleChange = e => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        })
     }
     const handleRegister = (e) => {
         e.preventDefault();
-        handleFetch({
-            url: "https://deadcousing.pythonanywhere.com/turno/agregar",
-            method: "POST",
-            body: JSON.stringify({
-                horaInicio: horaInicio,
-                horaFin: horaFin
-            }),
-            type: "ADD_TURNO"
-        });
-        initTurno();
+        console.log("Registrando...")
+        console.log(data);
+        TurnoRequest.agregar(data);
+        history.push('/turnos');
     }
+
     const image = 'https://media.istockphoto.com/photos/wall-clock-isolated-on-white-ten-past-ten-picture-id590618818'
     return (
         <div className="container">
@@ -87,7 +32,7 @@ const TurnosRegister = () => {
                     <div className="col-4 text-center  " >
                         <img src={image} alt="..." className="img-fluid rounded-middle ms-3 mt-2" />
                         <div className="form-group mt-3 mb-3">
-                            <button type="submit" className="btn btn-gold" onClick={handleRegister} >Guardar</button>
+                            <button className="btn btn-gold" onClick={handleRegister} >Guardar</button>
                         </div>
                     </div>
                     <div className="col-8 ">
@@ -104,7 +49,7 @@ const TurnosRegister = () => {
                                     name="horaInicio"
                                     id="horaInicio"
                                     value={horaInicio}
-                                    onChange={(e) => setHoraInicio(e.target.value)}
+                                    onChange={handleChange}
                                     placeholder="Hora Inicio"
                                 />
 
@@ -117,7 +62,7 @@ const TurnosRegister = () => {
                                     name="horaFin"
                                     id="horaFin"
                                     value={horaFin}
-                                    onChange={(e) => setHoraFin(e.target.value)}
+                                    onChange={handleChange}
                                     placeholder="Hora Fin"
                                 />
                             </div>

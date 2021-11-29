@@ -1,4 +1,4 @@
-export const ReducerTurno = (state =[], action) => {
+export const ReducerTurno = (state = {}, action) => {
     const { type } = action
     switch (type) {
         case 'ADD_TURNO':
@@ -19,13 +19,12 @@ export const ReducerTurno = (state =[], action) => {
         case 'GET_TURNOS':
             return {
                 ...state,
-                turnos: action.payload
+                turno: action.payload
             }
         default:
             return {
                 ...state,
-                turno: null,
-                turnos: []
+                turno: null
             }
 
     }

@@ -1,81 +1,94 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import ColonoRequest from '../../requests/ColonoRequest';
+import Viviendas from '../../requests/Viviendas';
+import FormularioColono from './componentes/FormularioColono';
 
-const ColonosRegister = () => {
+const ColonosRegister = ({ history }) => {
+    const dispatch = useDispatch();
+    const viviendas = useSelector(state => state.viviendas.vivienda);
+    const [init, setInit] = useState(1)
+
+    const [data, setData] = useState({
+        nombre: '',
+        apellidos: '',
+        telefono: '',
+        fotografia: '',
+        correo: '',
+        contrasena: '',
+        confirmarContrasena: '',
+        idDomicilio: ''
+    })
+    // const { nombre, apellidos, telefono, fotografia, correo, contrasena, confirmarContrasena, idDomicilio } = data;
+
+    const handleChange = (e) => {
+        setData({
+            ...data, [e.target.name]: e.target.value
+        })
+    }
+    const handleGetAllViviendas = async () => {
+        let response = await Viviendas.consultar(0);
+        dispatch({
+            type: 'VIVIENDA_LIST',
+            payload: response
+        })
+    }
+
+    
+    const handleGetAll = async () => {
+        let response = await ColonoRequest.consultar(0);
+        dispatch({
+            type: 'lIST_COLONO',
+            payload: response
+        })
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        ColonoRequest.agregar(data);
+        handleGetAll();
+        history.push('/colonos');
+    }
+
+
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            setData({
+                ...data,
+                fotografia: reader.result.split(',')[1]
+            })
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const onFileChange = (event) => {
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            getBase64(file);
+        }
+    }
+    useEffect(() => {
+        if (init === 1) {
+            handleGetAllViviendas();
+            setInit(0);
+        }
+    }, [viviendas])
+
     const image = 'https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg'
+
     return (
-
-        <div className="container">
-            <form action="" className="m-5 bg-white">
-                <div className="card-header  bg-color2 text-center mb-2">
-                    <h5 className="card-title">Registro de Colono</h5>
-                </div>
-                <div className="row ">
-                    <div className="col-4 text-center  " >
-                        <img src={image} alt="..." className="img-fluid rounded-middle " />
-
-                        <div className="form-group mt-3 mb-3">
-                            <button type="submit" className="btn btn-gold">Guardar</button>
-                        </div>
-                    </div>
-                    <div className="col-8">
-                        <div className="row m-2">
-                            <div class="card-header  bg-color2">
-                                <h5 class="card-title">Datos Personales</h5>
-                            </div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Nombres</label>
-                                <input name='nombre' type="text" className="form-control" />
-                            </div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Apellidos</label>
-                                <input name='apellidos' type="text" className="form-control" />
-                            </div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Teléfono</label>
-                                <input name='telefono' type="text" className="form-control" />
-                            </div>
-
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Fotografia</label>
-                                <input name='fotografia' type="file" className="form-control" />
-                            </div>
-                        </div>
-                        <div className="row m-2">
-                            <div class="card-header  bg-color2">
-                                <h5 class="card-title">Datos de Usuario</h5>
-                            </div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Correo</label>
-                                <input name='correo' type="text" className="form-control" />
-                            </div>
-                            <div className="col-6"></div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Contraseña</label>
-                                <input name='contraseña' type="text" className="form-control" />
-                            </div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Confirmar Contraseña</label>
-                                <input name='confirmarContraseña' type="text" className="form-control" />
-                            </div>
-                        </div>
-                        <div className="row m-2">
-
-                            <div class="card-header  bg-color2 mt-2 ">
-                                <h5 class="card-title">Colono Vivienda</h5>
-                            </div>
-                            <div className="form-group mt-3 col-6">
-                                <label htmlFor="">Vivienda</label>
-                                <select name='vivienda' className="form-control">
-                                    <option value="">Seleccione</option>
-                                    <option value="1">Si</option>
-                                    <option value="2">No</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+        <FormularioColono
+            image={image}
+            handleSuccess={handleRegister}
+            data={data}
+            handleChange={handleChange}
+            onFileChange={onFileChange}
+            viviendas={viviendas} />
     )
 }
 
