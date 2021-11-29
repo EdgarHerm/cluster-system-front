@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 
-const PersonalRegister = () => {
+const PersonalRegister = ({ history }) => {
 
     const [correo, setCorreo] = useState('')
     const [contrasenia, setContrasenia] = useState('')
     const [idRol, setIdRol] = useState('')
     const [nombre, setNombre] = useState('')
-    const [apellidos,setApellidos] = useState('')
+    const [apellidos, setApellidos] = useState('')
     const [telefono, setTelefono] = useState('')
     const [empresa, setEempresa] = useState('')
     const [zona, setZona] = useState('')
-    const [turno,setTurno] = useState('')
-    const state = useSelector(state => state.turno);
+    const [turno, setTurno] = useState('')
+    const state = useSelector(state => state.turno.turno);
     const dispatch = useDispatch();
     const clear = () => {
         setCorreo('');
@@ -94,7 +94,6 @@ const PersonalRegister = () => {
             }),
             type: "GET_TURNOS"
         });
-        console.log(state.turnos.map(turno => turno.horaInicio));
     }
 
     const handleRegister = (e) => {
@@ -116,7 +115,7 @@ const PersonalRegister = () => {
             }),
             type: "ADD_EMPLEADO"
         });
-        clear();
+        history.push('/personal');
     }
 
     const image = 'https://media.istockphoto.com/photos/security-guard-listening-to-earpiece-against-building-picture-id614438318'
@@ -132,7 +131,7 @@ const PersonalRegister = () => {
                         <img src={image} alt="..." className="img-fluid rounded-middle m-2" />
 
                         <div className="form-group mt-3 mb-3">
-                        <button type="submit" className="btn btn-gold" onClick={handleRegister} >Guardar</button>
+                            <button type="submit" className="btn btn-gold" onClick={handleRegister} >Guardar</button>
                         </div>
                     </div>
                     <div className="col-8">
@@ -194,11 +193,11 @@ const PersonalRegister = () => {
                                 />
                             </div>
                             <div className="form-group mt-3 col-6">
-                            <label htmlFor="">Rol</label>
-                                <select name='idRol' id='idrol' value ={idRol} className="form-control" onChange={(e) => setIdRol(e.target.value)}>
-                                   <option default>Seleccione</option>
-                                   <option value="1">Administrador</option>
-                                   <option value="2">Empleado</option>
+                                <label htmlFor="">Rol</label>
+                                <select name='idRol' id='idrol' value={idRol} className="form-control" onChange={(e) => setIdRol(e.target.value)}>
+                                    <option default>Seleccione</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Empleado</option>
                                 </select>
                             </div>
                             <div className="form-group mt-3 col-6">
@@ -254,11 +253,19 @@ const PersonalRegister = () => {
                             </div>
                             <div className="form-group mt-3 col-6">
                                 <label htmlFor="">Turno</label>
-                                <select value = {turno} name='turno' id='turno' className="form-control"  onChange={(e) => setTurno(e.target.value)}>
-                                    {
-                                        state.turnos.map((turno) =>{
-                                            return(
-                                                <option value={turno.idTurno}>{turno.horaInicio}- {turno.horaFin}</option>
+                                <select value={turno} name='turno' id='turno' className="form-control" onChange={(e) => setTurno(e.target.value)}>
+                                    {state === undefined || state === null ?
+                                        <option default>Cargando...</option>
+                                        : state.map((turno) => {
+                                            return (
+                                                <>
+                                                    {turno.estatus === 1 ?
+                                                        <option value={turno.idTurno}>{turno.horaInicio}- {turno.horaFin}</option>
+                                                        :
+                                                        null
+                                                    }
+                                                </>
+
                                             )
                                         })
                                     }

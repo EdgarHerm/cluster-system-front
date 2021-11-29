@@ -17,10 +17,6 @@ export const ReducerColono = (state = {}, action) => {
                 colonos: state.colonos.filter(colono => colono.id !== action.payload)
             }
         default:
-            return {
-                ...state,
-                colono: state.colono,
-                colonos: state.colonos
-            }
+            return state;
     }
 }

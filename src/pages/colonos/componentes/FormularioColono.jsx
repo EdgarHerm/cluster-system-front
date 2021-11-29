@@ -1,7 +1,7 @@
 import React from 'react'
 
 const FormularioColono = ({
-    image, handleSuccess, data, handleChange, onFileChange,viviendas
+    image, handleSuccess, data, handleChange, onFileChange, viviendas
 }) => {
     const { nombre,
         apellidos,

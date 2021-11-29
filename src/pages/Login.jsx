@@ -10,8 +10,8 @@ const Login = ({ history }) => {
     const dispatch = useDispatch();
 
     const [user, setUser] = useState({
-        usuario: 'candeGTZ7@gmail.com',
-        contrasenia: 'CandeGTZ7'
+        usuario: '',
+        contrasenia: ''
     });
 
     const { usuario, contrasenia } = user;
@@ -29,7 +29,23 @@ const Login = ({ history }) => {
             type: 'LOGIN',
             payload: response
         });
-        history.push('/registro-visita')
+        try {
+            if (response['idRol']) {
+                if (response['idRol'] === 1) {
+                    history.push('/');
+                } else {
+                    alert('No tiene permisos para acceder a esta sección');
+                }
+            } else {
+                alert('Usuario o contraseña incorrectos');
+                localStorage.clear();
+                sessionStorage.clear();
+            }
+
+        } catch (error) {
+            console.log("Error: " + error);
+        }
+
     };
 
 
