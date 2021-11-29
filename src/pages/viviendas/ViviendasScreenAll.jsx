@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Viviendas from '../../requests/Viviendas';
 import TableViviendas from './components/TableViviendas';
 
-const ViviendasScreenAll = () => {
+const ViviendasScreenAll = ({history}) => {
     const dispatch = useDispatch();
     const viviendas = useSelector(state => state.viviendas.vivienda);
 
@@ -17,8 +17,14 @@ const ViviendasScreenAll = () => {
     }
     const [init, setInit] = useState(1)
 
+    const validarSession = () => {
+        if (!localStorage.getItem('token')) {
+            history.push('/');
+        }
+    }
     useEffect(() => {
         if (init === 1) {
+            validarSession();
             handleGetAll();
             setInit(0);
         }

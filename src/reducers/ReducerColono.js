@@ -10,11 +10,13 @@ export const ReducerColono = (state = {}, action) => {
                 ...state,
                 colonos: action.payload
             }
-        default:
+        case 'DELETE_COLONO':
+            console.log(action.payload);
             return {
                 ...state,
-                colono: null,
-                colonos: null
+                colonos: state.colonos.filter(colono => colono.id !== action.payload)
             }
+        default:
+            return state;
     }
 }

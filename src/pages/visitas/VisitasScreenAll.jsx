@@ -1,180 +1,126 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import VisitasRequest from "../../requests/VisitasRequest";
 
 const VisitasScreenAll = () => {
-  const handleFetch = async ({ url, method, body, type }) => {
-    switch (method) {
-      case "POST":
-        await fetch(url, {
-          method: method,
-          headers: new Headers({
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE",
-            "Access-Control-Allow-Headers": "Authorization,Lang",
-          }),
-          body: body,
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              console.log(response);
-            }
-          })
-          .then((data) => {
-            dispatch({
-              type: type,
-              payload: data,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        break;
-      case "GET":
-        await fetch(url, {
-          method: method,
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else console.log(response);
-          })
-          .then((data) => {
-            dispatch({
-              type: type,
-              payload: data,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        break;
-      default:
-        break;
-    }
-  };
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.visita);
+  const visitas = useSelector((state) => state.visita.visitas);
 
-  useEffect(() => {
-    handleGetAll();
-  }, []);
-
-  const handleGetAll = () => {
-    handleFetch({
-      url: "https://deadcousing.pythonanywhere.com/visita/mostrar",
-      method: "POST",
-      body: JSON.stringify({
-        idVisita:0
-      }),
+  const handleGetAll = async () => {
+    let response = await VisitasRequest.consultar(0);
+    dispatch({
       type: "GET_VISITAS",
+      payload: response['visitas'],
     });
   };
 
-  const Visitas = {};
-  Visitas.desactivarVisita = async (idVisita) => {
-    console.log(idVisita);
-    return fetch("https://deadcousing.pythonanywhere.com/visita/entradaVisita", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
-        "Access-Control-Allow-Headers": "Authorization, Lang",
-      },
-      body: JSON.stringify({
-        idVisita: idVisita,
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const [init, setInit] = useState(1)
 
-  const desactivarVisitas = async (idVisita) => {
-    console.log(idVisita);
-    const response = await Visitas.desactivarVisita(idVisita);
-    console.log(response);
-    handleGetAll();
-  };
+  useEffect(() => {
+    if (init === 1) {
+      handleGetAll();
+      setInit(0);
+    }
+  }, [visitas])
 
-  Visitas.salidaVisita = async (idVisita) => {
-    console.log(idVisita);
-    return fetch("https://deadcousing.pythonanywhere.com/visita/salidaVisita", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
-        "Access-Control-Allow-Headers": "Authorization, Lang",
-      },
-      body: JSON.stringify({
-        idVisita: idVisita,
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
-  const salidaVisitas = async (idVisita) => {
-    console.log(idVisita);
-    const response = await Visitas.salidaVisita(idVisita);
-    console.log(response);
-    handleGetAll();
-  };
+  const dateFormat = (date) => {
+    let dateSplit = date.split(' ');
+    let dia = dateSplit[1];
+    let mes = dateSplit[2];
+    let anio = dateSplit[3];
+    switch (mes) {
+      case 'Jan':
+        mes = '01';
+        break;
+      case 'Feb':
+        mes = '02';
+        break;
+      case 'Mar':
+        mes = '03';
+        break;
+      case 'Apr':
+        mes = '04';
+        break;
+      case 'May':
+        mes = '05';
+        break;
+      case 'Jun':
+        mes = '06';
+        break;
+      case 'Jul':
+        mes = '07';
+        break;
+      case 'Aug':
+        mes = '08';
+        break;
+      case 'Sep':
+        mes = '09';
+        break;
+      case 'Oct':
+        mes = '10';
+        break;
+      case 'Nov':
+        mes = '11';
+        break;
+      case 'Dec':
+        mes = '12';
+        break;
+      default:
+        mes = '0';
+        break;
+    }
+    return `${anio}-${mes}-${dia}`;
+  }
 
   return (
     <div className="container bg-white m-12">
       <div className="card-header  bg-color2 text-center ">
-        <h5 className="card-title">Registro de Turnos</h5>
+        <h5 className="card-title">Registro de Visitas</h5>
       </div>
       <table className="table table-light">
         <thead>
           <tr>
-            <th>Nombre</th>
+            <th>Visitante</th>
+            <th>Domicilio</th>
+            <th>Fecha Entrada</th>
+            <th>Fecha Salida</th>
+            <th>Colono</th>
+            <th>Vehiculo</th>
             <th>Matricula</th>
-            <th>Modelo</th>
-            <th>Color</th>
-            <th>options</th>
           </tr>
         </thead>
         <tbody>
-          {state.visitas.map((visitas) => {
-              return(
-                <tr id={visitas.idVisita}>
-                <td>{visitas.nombre}</td>
-                <td>{visitas.matriculaVehiculo}</td>
-                <td>{visitas.modelo}</td>
-                <td>{visitas.color}</td>
-                <td>
-                  {/* {viviendas.fechaEntrada === "Sat, 01 Jan 2000 00:00:00 GMT" || viviendas.fechaSalida === "Sat, 01 Jan"  } */}
-                    <button className="btn-success btn"  onClick={() => {
-                      salidaVisitas(visitas.idVisita);
-                    }}> Salida </button>
-                    <br />
-                    <button
-                    className="btn-danger btn"
-                    onClick={() => {
-                      desactivarVisitas(visitas.idVisita);
-                    }}
-                  >
-                    {" "}
-                    Registar Entrada{" "}
-                  </button>
-                </td>
+          {visitas === null || visitas === undefined ?
+            <div class="d-flex justify-content-center">
+              <div className="spinner-border text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            : visitas.map((visita) => {
+              return (
+                <tr id={visita.idVisita}>
+                  <td>{visita.nombreV}</td>
+                  <td>{visita.calle + " #" + visita.numero}</td>
+                  <td>
+                    {
+                      dateFormat(visita.fechaSalida) === "2000-01-01" ? "Visita Programada"
+                        : dateFormat(visita.fechaSalida)
+                    }
+                  </td>
+                  <td>{
+                    dateFormat(visita.fechaSalida) === "2000-01-01" ? "Sin Salida"
+                      : dateFormat(visita.fechaSalida)
+                  }
+                  </td>
+                  <td>{visita.nombre}</td>
+                  <td>{visita.modelo + " " + visita.color}</td>
+                  <td>{visita.matricula}</td>
                 </tr>
               )
-            
-          })}
+
+            })}
         </tbody>
       </table>
     </div>

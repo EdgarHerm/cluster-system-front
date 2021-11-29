@@ -16,6 +16,15 @@ const ColonosScreenAll = () => {
         })
     }
 
+    const handleDelete = ({ idColono }) => {
+        ColonoRequest.eliminar(idColono);
+        handleGetAll();
+    }
+    const handleActive = ({ idColono }) => {
+        ColonoRequest.activar(idColono);
+        handleGetAll();
+    }
+
     const [init, setInit] = useState(0)
 
     useEffect(() => {
@@ -40,10 +49,14 @@ const ColonosScreenAll = () => {
                 </nav>
                 <div className="tab-content" id="nav-tabContent">
                     <div className="tab-pane fade show active" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
-                        <TableColonos colonos={colonos} estatus={1} />
+                        <TableColonos colonos={colonos} estatus={1}
+                            handleDelete={handleDelete}
+                            handleActive={handleActive} />
                     </div>
                     <div className="tab-pane fade" id="nav-inactive" role="tabpanel" aria-labelledby="nav-inactive-tab">
-                        <TableColonos colonos={colonos} estatus={0} />
+                        <TableColonos colonos={colonos} estatus={0}
+                            handleDelete={handleDelete}
+                            handleActive={handleActive} />
                     </div>
                 </div>
 

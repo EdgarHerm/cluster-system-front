@@ -34,7 +34,7 @@ const NavBar = ({ history }) => {
                         <li className="nav-item">
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link txt-color3" to={'/visita'}>Visitas</Link>
+                            <Link className="nav-link txt-color3" to={'/visitas'}>Visitas</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,19 +42,8 @@ const NavBar = ({ history }) => {
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li><NavLink className="dropdown-item" to="/colonos">Colonos</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/registro-colono">Registro Colonos</NavLink></li>
-                                <li><hr className="dropdown-divider"></hr></li>
-                                <li><NavLink className="dropdown-item" to="/vehiculos">Vehiculos</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/registro-vehiculo">Registro Vehiculos</NavLink></li>
-                            </ul>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle txt-color3" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Visitas
-                            </Link>
-                            <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><NavLink className="dropdown-item" to="/registro-visita">Registro Visitas</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/visitas">Visitas</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/registro-colono">Registro Colonos</NavLink>
+                                </li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
@@ -83,9 +72,12 @@ const NavBar = ({ history }) => {
                                 Pagos
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><NavLink className="dropdown-item" to="/pagos">Pagos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/pagos">Lista Pagos</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/registro-pago">Registro Pagos</NavLink></li>
+                                <li><hr className="dropdown-divider"></hr></li>
+                                <li><NavLink className="dropdown-item" to="/pagos-recepcion">Lista Recepcion Pagos</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/recepcion-pago">Recepcion Pagos</NavLink></li>
+
                             </ul>
                         </li>
 

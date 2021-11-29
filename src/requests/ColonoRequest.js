@@ -37,15 +37,21 @@ export default {
                     fotografia: colono.fotografia,
                     correo: colono.correo,
                     contraseña: colono.contrasena,
-                    idRol: colono.idRol,
+                    idRol: 3,
                     nombre: colono.nombre,
                     apellidos: colono.apellidos,
                     telefono: colono.telefono,
                     idDomicilio: colono.idDomicilio
                 })
             })
-            .then(response => response.json())
-            .then(data => { return data })
+            .then(response => {
+                console.log(response);
+                return response.json()
+            })
+            .then(data => {
+                console.log(data);
+                return data
+            })
     },
     modificar: (colono) => {
         return fetch(
