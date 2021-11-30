@@ -4,8 +4,14 @@ import { useParams } from 'react-router-dom';
 import ColonoRequest from '../../requests/ColonoRequest';
 import Viviendas from '../../requests/Viviendas';
 import FormularioColono from './componentes/FormularioColono'
+import Swal from 'sweetalert2'
+
 
 const ColonoScreen = ({ history }) => {
+
+    const Swal = require('sweetalert2')
+
+
     const image = 'https://www.elegircarrera.net/blog/wp-content/uploads/2017/11/personas-importantes-universidad-amigos-2000x1200.jpg'
 
     const dispatch = useDispatch();
@@ -32,6 +38,7 @@ const ColonoScreen = ({ history }) => {
     // const { nombre, apellidos, telefono, fotografia, correo, contrasena, confirmarContrasena, idDomicilio } = data;
 
     const handleChange = (e) => {
+
         setData({
             ...data, [e.target.name]: e.target.value
         })
@@ -60,9 +67,27 @@ const ColonoScreen = ({ history }) => {
 
     const handleEdit = (e) => {
         e.preventDefault();
-        ColonoRequest.modificar(data);
-        handleGetAll();
-        history.push('/colonos');
+        if (data.contrasena !== data.confirmarContrasena) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                background: '#222126',
+                text: 'Las contraseñas no coinciden',
+            })
+        } else {
+            ColonoRequest.modificar(data);
+            handleGetAll();
+            
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                background: '#222126',
+                title: 'Edicion Exitosa',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            history.push('/colonos');
+        }
     }
 
 
@@ -115,10 +140,18 @@ const ColonoScreen = ({ history }) => {
     }, [colono, viviendas]);
     return (
         <>{colono === null || colono === undefined ?
-            <div>Cargando...</div>
+            <div class="d-flex justify-content-center">
+                <div className="spinner-border text-warning" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
             :
             colono.idColono === undefined ?
-                <div>Cargando...</div>
+                <div class="d-flex justify-content-center">
+                    <div className="spinner-border text-warning" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 :
                 < FormularioColono
                     image={image}

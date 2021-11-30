@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import RequestLogin from '../requests/RequestLogin';
+import Swal from 'sweetalert2'
 
 
 
@@ -8,6 +9,9 @@ const Login = ({ history }) => {
     //const [usuario, setUsuario] = useState('candeGTZ7@gmail.com');
     //const [contrasenia, setContrasenia] = useState('CandeGTZ7');
     const dispatch = useDispatch();
+
+    // CommonJS
+    const Swal = require('sweetalert2')
 
     const [user, setUser] = useState({
         usuario: '',
@@ -32,16 +36,43 @@ const Login = ({ history }) => {
         try {
             if (response['idRol']) {
                 if (response['idRol'] === 1) {
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        background: '#222126',
+                        title: 'Inicio de Session Exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     history.push('/');
                 } else {
-                    alert('No tiene permisos para acceder a esta sección');
+                    //alert('No tiene permisos para acceder a esta sección');
                     localStorage.clear();
                     sessionStorage.clear();
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        background: '#222126',
+                        title: 'No tiene permisos para acceder a esta sección',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             } else {
-                alert('Usuario o contraseña incorrectos');
+                //alert('Usuario o contraseña incorrectos');
                 localStorage.clear();
                 sessionStorage.clear();
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    background: '#222126',
+                    title: 'Usuario o contraseña incorrectos',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
 
         } catch (error) {
