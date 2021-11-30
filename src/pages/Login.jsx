@@ -35,6 +35,8 @@ const Login = ({ history }) => {
                     history.push('/');
                 } else {
                     alert('No tiene permisos para acceder a esta sección');
+                    localStorage.clear();
+                    sessionStorage.clear();
                 }
             } else {
                 alert('Usuario o contraseña incorrectos');
