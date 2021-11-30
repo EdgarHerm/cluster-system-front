@@ -17,7 +17,7 @@ const NavBar = ({ history }) => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-color1 " style={localStorage.getItem('token') ? null : { display: 'none' }} >
+        <nav className="navbar  navbar-expand-lg bg-color1 " style={localStorage.getItem('token') ? null : { display: 'none' }} >
             <div className="container-fluid">
 
                 <Link className="navbar-brand txt-color3" to={'/'} >
@@ -41,7 +41,7 @@ const NavBar = ({ history }) => {
                                 Colonos
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><NavLink className="dropdown-item" to="/colonos">Colonos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/colonos">Lista Colonos</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/registro-colono">Registro Colonos</NavLink>
                                 </li>
                             </ul>
@@ -51,8 +51,8 @@ const NavBar = ({ history }) => {
                                 Viviendas
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><NavLink className="dropdown-item" to="/viviendas">Lista Viviendas</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/registro-vivienda">Registro Viviendas</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/viviendas">Viviendas</NavLink></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
@@ -60,11 +60,11 @@ const NavBar = ({ history }) => {
                                 Personal
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><NavLink className="dropdown-item" to="/personal">Lista Personal</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/registro-personal">Registro Personal</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/personal">Personal</NavLink></li>
                                 <li><hr className="dropdown-divider"></hr></li>
-                                <li><NavLink className="dropdown-item" to="/registro-turno">Registro Turnos</NavLink></li>
                                 <li><NavLink className="dropdown-item" to="/turnos">Turnos</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/registro-turno">Registro Turnos</NavLink></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">

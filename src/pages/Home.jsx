@@ -5,7 +5,7 @@ const Home = () => {
 
     return (
         <div className="d-flex justify-content-center">
-            <div className="card bg-color1" style={{ width: "100vh" }}>
+            <div className="card bg-color1" style={{ width: "200vh" }}>
                 <img src={image_path} className="card-img-top logo" alt="..." />
                 <div className="card-body text-center">
                     <h5 className="card-title">Beinvenido Clúster Taurus</h5>
